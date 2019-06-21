@@ -3,7 +3,8 @@ export type StoreState = {
 }
 
 export type StoreDispatch = {
-  exchangeFromTo: (st: any) => void
+  exchangeFromTo: () => void
+  saveData: (params:any) => void
 }
 
 export type OwnProps = {}

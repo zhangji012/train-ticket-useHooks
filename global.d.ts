@@ -15,6 +15,8 @@ interface IEffectsAction {
   payload?: any
   //回调
   callback?: (res?: any | boolean) => void
+
+  type?: string
 }
 interface IJson {
   [key: string]: any
@@ -33,4 +35,11 @@ interface IStore {
 interface IHomeStore {
   from: string
   to: string
+  isCitySelectorVisible: boolean
+  currentSelectingLeftCity: boolean
+  cityData: any
+  isLoadingCityData: boolean
+  isDateSelectorVisible: boolean
+  departDate: number
+  highSpeed: boolean
 }

@@ -10,7 +10,7 @@ interface IProps {
 }
 export default function Journey(props: IProps) {
   const { from, to, exchangeFromTo, showCitySelector } = props;
-  console.log('from', from)
+  // console.log('from', from)
   return (
     <div className="journey">
       <div className="journey-station" onClick={() => showCitySelector(true)}>

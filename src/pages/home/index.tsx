@@ -3,6 +3,7 @@ import { connect } from 'dva';
 import { Props } from '@/pages/home/type';
 import Header from '@/components/Header';
 import Journey from './components/Journey';
+import DepartDate from './components/DepartDate';
 
 import styles from './index.less';
 
@@ -16,7 +17,7 @@ function App(props: Props) {
     // isLoadingCityData,
     // highSpeed,
     // dispatch,
-    // departDate,
+    departDate,
   } = props.home;
 
   const onBack = useCallback(() => {
@@ -25,8 +26,20 @@ function App(props: Props) {
 
   const cbs = useMemo(() => {
     return {
-      exchangeFromTo: () => {},
+      exchangeFromTo: () => {
+        props.exchangeFromTo();
+      },
       showCitySelector: () => {},
+    };
+  }, []);
+
+  const departDateCbs = useMemo(() => {
+    return {
+      onClick: () => {
+        props.saveData({
+          isDateSelectorVisible: true,
+        });
+      },
     };
   }, []);
 
@@ -37,6 +50,7 @@ function App(props: Props) {
       </div>
       <div className={styles.form}>
         <Journey from={from} to={to} {...cbs} />
+        <DepartDate time={departDate} {...departDateCbs} />
       </div>
     </div>
   );
@@ -50,6 +64,11 @@ const mapDispatchToProps = (dispatch: IDispatch) => ({
   exchangeFromTo: () =>
     dispatch({
       type: 'home/exchangeFromTo',
+    }),
+  saveData: (params: any) =>
+    dispatch({
+      type: 'home/save',
+      payload: params,
     }),
 });
 export default connect(
