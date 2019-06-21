@@ -1,4 +1,5 @@
 import { IConfig } from 'umi-types';
+import path, { resolve } from "path";
 
 // ref: https://umijs.org/config/
 const config: IConfig =  {
@@ -26,6 +27,18 @@ const config: IConfig =  {
       },
     }],
   ],
+  alias: {
+    "@": resolve(__dirname, "./src"),
+  },
+  uglifyJSOptions: {
+    uglifyOptions: {
+      compress: {
+        warnings: false,
+        drop_debugger: true,
+        drop_console: true
+      }
+    }
+  }
 }
 
 export default config;
