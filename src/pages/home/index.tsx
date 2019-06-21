@@ -1,9 +1,11 @@
 import React, { useCallback, useMemo } from 'react';
 import { connect } from 'dva';
-import { Props } from '@/pages/home/type';
+import { Props, onSstType } from '@/pages/home/type';
 import Header from '@/components/Header';
 import Journey from './components/Journey';
 import DepartDate from './components/DepartDate';
+import DateSelector from './components/DateSelector';
+
 
 import styles from './index.less';
 
@@ -12,7 +14,7 @@ function App(props: Props) {
     from,
     to,
     // isCitySelectorVisible,
-    // isDateSelectorVisible,
+    isDateSelectorVisible,
     // cityData,
     // isLoadingCityData,
     // highSpeed,
@@ -33,15 +35,15 @@ function App(props: Props) {
     };
   }, []);
 
-  const departDateCbs = useMemo(() => {
-    return {
-      onClick: () => {
-        props.saveData({
-          isDateSelectorVisible: true,
-        });
-      },
-    };
+
+  const onSst = useCallback((obj: onSstType) => {
+    props.saveData(obj)
+  }, [])
+
+  const onSelectDate = useCallback((day) => {
+    console.log('onSelectDate', day);
   }, []);
+
 
   return (
     <div>
@@ -50,7 +52,8 @@ function App(props: Props) {
       </div>
       <div className={styles.form}>
         <Journey from={from} to={to} {...cbs} />
-        <DepartDate time={departDate} {...departDateCbs} />
+        <DepartDate time={departDate} onSet={onSst} />
+        <DateSelector show={isDateSelectorVisible} onSelect={onSelectDate} onSet={onSst} />
       </div>
     </div>
   );

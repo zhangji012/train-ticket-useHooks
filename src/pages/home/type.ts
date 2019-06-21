@@ -10,3 +10,7 @@ export type StoreDispatch = {
 export type OwnProps = {}
 
 export type Props =  StoreState & StoreDispatch & OwnProps
+
+export type onSstType = {
+  [propName: string]: any
+}

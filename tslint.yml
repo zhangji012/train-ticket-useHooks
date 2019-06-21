@@ -4,9 +4,10 @@ extends:
   - tslint-eslint-rules
 jsRules:
 rules:
-  eofline: true
+  # eofline: true
   # no-console: true
-  no-construct: true
+  # no-construct: true
   no-debugger: true
-  no-reference: true
+  # no-reference: true
   jsx-no-lambda: false
+  jsx-no-multiline-js: false
