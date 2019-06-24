@@ -7,7 +7,7 @@ import './index.less';
 
 interface IProps {
   show: boolean;
-  onSelect: () => void;
+  onSelect: (day: number) => void;
   onSet: (obj: onSstType) => void;
 }
 export default function DateSelector(props: IProps) {

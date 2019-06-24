@@ -5,8 +5,9 @@ import Header from '@/components/Header';
 import Journey from './components/Journey';
 import DepartDate from './components/DepartDate';
 import DateSelector from './components/DateSelector';
+import HighSpeed from './components/HighSpeed';
 
-
+import { h0 } from '@/utils/tool';
 import styles from './index.less';
 
 function App(props: Props) {
@@ -17,7 +18,7 @@ function App(props: Props) {
     isDateSelectorVisible,
     // cityData,
     // isLoadingCityData,
-    // highSpeed,
+    highSpeed,
     // dispatch,
     departDate,
   } = props.home;
@@ -35,15 +36,23 @@ function App(props: Props) {
     };
   }, []);
 
-
   const onSst = useCallback((obj: onSstType) => {
-    props.saveData(obj)
-  }, [])
-
-  const onSelectDate = useCallback((day) => {
-    console.log('onSelectDate', day);
+    props.saveData(obj);
   }, []);
+  // todo 如果useMemo返回的是一个函数，可以直接使用useCallback简写,但是理解还是不深
+  const onSelectDate = useCallback(day => {
+    if (!day) {
+      return;
+    }
 
+    if (day < h0()) {
+      return;
+    }
+    props.saveData({
+      isDateSelectorVisible: false,
+      departDate: day,
+    });
+  }, []);
 
   return (
     <div>
@@ -53,8 +62,9 @@ function App(props: Props) {
       <div className={styles.form}>
         <Journey from={from} to={to} {...cbs} />
         <DepartDate time={departDate} onSet={onSst} />
-        <DateSelector show={isDateSelectorVisible} onSelect={onSelectDate} onSet={onSst} />
+        <HighSpeed highSpeed={highSpeed} onSet={onSst} />
       </div>
+      <DateSelector show={isDateSelectorVisible} onSelect={onSelectDate} onSet={onSst} />
     </div>
   );
 }
