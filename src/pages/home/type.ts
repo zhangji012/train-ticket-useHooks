@@ -3,8 +3,9 @@ export type StoreState = {
 }
 
 export type StoreDispatch = {
-  exchangeFromTo: () => void
   saveData: (params:any) => void
+  getCityData: () => void
+
 }
 
 export type OwnProps = {}

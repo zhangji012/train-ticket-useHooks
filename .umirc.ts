@@ -38,7 +38,14 @@ const config: IConfig =  {
         drop_console: true
       }
     }
-  }
+  },
+  proxy: {
+    "/api": {
+      "target": "http://localhost:3000",
+      "changeOrigin": true,
+      "pathRewrite": { "^/api": "" }
+    }
+  },
 }
 
 export default config;

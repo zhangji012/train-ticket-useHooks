@@ -4,7 +4,7 @@ import './index.less';
 
 interface IProps {
   days: any[];
-  onSelect: () => void;
+  onSelect: (day: number) => void;
 }
 export default function DateSelector(props: IProps) {
   const { days, onSelect } = props;

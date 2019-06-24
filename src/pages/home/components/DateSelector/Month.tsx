@@ -4,7 +4,7 @@ import './index.less';
 
 interface IProps {
   startingTimeInMonth: number;
-  onSelect: () => void;
+  onSelect: (day: number) => void;
 }
 export default function DateSelector(props: IProps) {
   const { startingTimeInMonth, onSelect } = props;

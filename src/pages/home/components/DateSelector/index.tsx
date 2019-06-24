@@ -12,7 +12,7 @@ interface IProps {
 }
 export default function DateSelector(props: IProps) {
   const { show, onSelect, onSet } = props;
-  const handleClick = useCallback(() => {
+  const handleBack = useCallback(() => {
     onSet({
       isDateSelectorVisible: false
     })
@@ -35,10 +35,10 @@ export default function DateSelector(props: IProps) {
   // 显示下个月
   now.setMonth(now.getMonth() + 1);
   monthSequence.push(now.getTime());
-  console.log('monthSequence', monthSequence);
+  // console.log('monthSequence', monthSequence);
   return (
     <div className={classnames('date-selector', { hidden: !show })}>
-      <Header title="日期选择" onBack={handleClick} />
+      <Header title="日期选择" onBack={handleBack} />
       <div className="date-selector-tables">
         {monthSequence.map(month => {
           return <Month key={month} onSelect={onSelect} startingTimeInMonth={month} />;
