@@ -43,3 +43,4 @@ interface IHomeStore {
   departDate: number
   highSpeed: boolean
 }
+

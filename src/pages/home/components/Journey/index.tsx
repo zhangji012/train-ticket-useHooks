@@ -10,9 +10,10 @@ interface IProps {
 }
 export default function Journey(props: IProps) {
   const { from, to, onSet } = props;
-  const handleClick = useCallback(() => {
+  const handleClick = useCallback((bool: boolean) => {
     onSet({
       isCitySelectorVisible: true,
+      currentSelectingLeftCity: bool
     });
   }, []);
   const handleExchangeFromTo = useCallback(() => {
@@ -23,7 +24,7 @@ export default function Journey(props: IProps) {
   }, []);
   return (
     <div className="journey">
-      <div className="journey-station" onClick={() => handleClick()}>
+      <div className="journey-station" onClick={() => handleClick(true)}>
         <input
           type="text"
           readOnly={true}
@@ -35,7 +36,7 @@ export default function Journey(props: IProps) {
       <div className="journey-switch" onClick={() => handleExchangeFromTo()}>
         <img src={switchImg} width="70" height="40" alt="switch" />
       </div>
-      <div className="journey-station" onClick={() => handleClick()}>
+      <div className="journey-station" onClick={() => handleClick(false)}>
         <input
           type="text"
           readOnly={true}

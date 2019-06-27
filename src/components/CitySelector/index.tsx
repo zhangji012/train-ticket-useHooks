@@ -1,7 +1,8 @@
-import React, { useState, useMemo, memo, useEffect, useCallback } from 'react';
+import React, { useState, useMemo, useEffect, useCallback } from 'react';
 import classnames from 'classnames';
 import { onSstType } from '@/pages/home/type';
-
+import CityList from './CityList';
+import Suggest from './Suggest';
 import './index.less';
 
 interface IProps {
@@ -10,48 +11,64 @@ interface IProps {
     [propName: string]: any;
   };
   isLoading: boolean;
-  // onBack: () => void;
+  currentSelectingLeftCity: boolean
   fetchCityData: () => void;
-  // onSelect: () => void;
-  onSet: (obj: onSstType) => void;
 
+  onSet: (obj: onSstType) => void;
 }
 export default function Header(props: IProps) {
-  const { show, cityData, isLoading, onSet, fetchCityData } = props;
+  const { show, cityData, isLoading, onSet, fetchCityData, currentSelectingLeftCity } = props;
   const [searchKey, setSearchKey] = useState('');
   // trim() 方法会从一个字符串的两端删除空白字符
   const key = useMemo(() => searchKey.trim(), [searchKey]);
-
-  useEffect(() => {
+  useEffect(
+    () => {
       if (!show || cityData || isLoading) {
-          return;
+        return;
       }
-
       fetchCityData();
-      console.log(11111111)
-  }, [show, cityData, isLoading]);
+    },
+    [show, cityData, isLoading],
+  );
   // Element.scrollIntoView() 方法让当前的元素滚动到浏览器窗口的可视区域内
   // 这边样式有些问题，比如跳到D时
   // todo 这个地方怎么处理好呢
   const toAlpha = useCallback(alpha => {
     document.querySelector(`[data-cate='${alpha}']`).scrollIntoView();
   }, []);
+  const handleSelect = useCallback((str: string) => {
+  // console.log('bool', currentSelectingLeftCity, str);
+
+    onSet({
+      isCitySelectorVisible: false,
+    });
+    if (currentSelectingLeftCity) {
+      onSet({
+        from: str,
+      });
+    } else {
+      onSet({
+        to: str,
+      });
+    }
+
+  }, [currentSelectingLeftCity]);
   const outputCitySections = () => {
     if (isLoading) {
       return <div>loading</div>;
     }
 
     if (cityData) {
-      return <div>cityData</div>;
+      return <CityList sections={cityData.cityList} onSelect={handleSelect} toAlpha={toAlpha} />;
     }
 
     return <div>error</div>;
   };
   const handleBack = useCallback(() => {
     onSet({
-      isCitySelectorVisible: false
-    })
-  }, [])
+      isCitySelectorVisible: false,
+    });
+  }, []);
 
   return (
     <div className={classnames('city-selector', { hidden: !show })}>
@@ -78,8 +95,9 @@ export default function Header(props: IProps) {
         >
           &#xf063;
         </i>
-        {outputCitySections()}
       </div>
+      {Boolean(key) && <Suggest searchKey={key} onSelect={key => handleSelect(key)} />}
+      {outputCitySections()}
     </div>
   );
 }

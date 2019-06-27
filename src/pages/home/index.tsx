@@ -21,6 +21,7 @@ function App(props: Props) {
     isLoadingCityData,
     highSpeed,
     departDate,
+    currentSelectingLeftCity
   } = props.home;
 
   const onBack = useCallback(() => {
@@ -71,6 +72,7 @@ function App(props: Props) {
         cityData={cityData}
         isLoading={isLoadingCityData}
         fetchCityData={props.getCityData}
+        currentSelectingLeftCity={currentSelectingLeftCity}
         onSet={onSst}
       />
       <DateSelector show={isDateSelectorVisible} onSelect={onSelectDate} onSet={onSst} />
