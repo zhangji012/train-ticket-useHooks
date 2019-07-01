@@ -13,7 +13,7 @@ export default function Journey(props: IProps) {
     onSet({
       highSpeed: !highSpeed,
     });
-  }, []);
+  }, [highSpeed]);
   return (
     <div className="high-speed">
       <div className="high-speed-label">只看高铁/动车</div>

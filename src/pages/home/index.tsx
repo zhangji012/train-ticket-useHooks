@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import { connect } from 'dva';
 import { Props, onSstType } from '@/pages/home/type';
 import Header from '@/components/Header';
@@ -28,17 +28,6 @@ function App(props: Props) {
     window.history.back();
   }, []);
 
-  // const cbs = useMemo(() => {
-  //   return {
-  //     exchangeFromTo: () => {
-  //       props.exchangeFromTo();
-  //     },
-  //     showCitySelector: () => {
-
-  //     },
-  //   };
-  // }, []);
-
   const onSst = useCallback((obj: onSstType) => {
     props.saveData(obj);
   }, []);
@@ -57,6 +46,10 @@ function App(props: Props) {
     });
   }, []);
 
+  const onSubmit = () => {
+    console.log('onSubmit')
+  }
+
   return (
     <div>
       <div className={styles['header-wrapper']}>
@@ -66,6 +59,9 @@ function App(props: Props) {
         <Journey from={from} to={to} onSet={onSst} />
         <DepartDate time={departDate} onSet={onSst} />
         <HighSpeed highSpeed={highSpeed} onSet={onSst} />
+        <div className="submit">
+            <button className="submit-button" onClick={onSubmit}> 搜索 </button>
+        </div>
       </div>
       <CitySelector
         show={isCitySelectorVisible}
@@ -79,7 +75,7 @@ function App(props: Props) {
     </div>
   );
 }
-// todo 这边有警告，暂时搞其他的，后面看下
+// todo 这边有警告，这个警告怎么去除呢，感觉没写错
 const mapStateToProps = (state: IStore) => ({
   home: state.home,
   isLoadingCityData: state.loading.effects['home/fetch'],

@@ -39,7 +39,8 @@
     "tslint-react": "^3.6.0",
     "umi": "^2.7.0",
     "umi-plugin-react": "^1.8.0",
-    "umi-types": "^0.2.0"
+    "umi-types": "^0.2.0",
+    "urijs": "^1.19.1"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
