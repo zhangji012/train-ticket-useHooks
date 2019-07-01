@@ -42,7 +42,10 @@ export const request = (url: string, params = {}) => {
 }
 export const get = (url: string, params={}) => {
   return axios.get(url, {
-    params: parseBody(params)
+    params: parseBody(params),
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+    },
   }).then(res => {
     const { status, data } = res
     if (status >= 200) {

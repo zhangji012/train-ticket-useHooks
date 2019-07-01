@@ -41,9 +41,9 @@ const config: IConfig =  {
   },
   proxy: {
     "/api": {
-      "target": "http://localhost:3000",
+      "target": "http://39.96.69.24",
       "changeOrigin": true,
-      "pathRewrite": { "^/api": "" }
+      "pathRewrite": { "^/api" : "" }
     }
   },
 }

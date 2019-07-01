@@ -2,6 +2,7 @@
   "private": true,
   "scripts": {
     "start": "umi dev",
+    "start:3001": "cross-env PORT=3001 umi dev",
     "build": "umi build",
     "test": "umi test",
     "lint:es": "eslint --ext .js src mock tests",
@@ -21,6 +22,7 @@
     "@types/react-dom": "^16.0.11",
     "@types/react-test-renderer": "^16.0.3",
     "babel-eslint": "^9.0.0",
+    "cross-env": "^5.2.0",
     "dayjs": "^1.8.14",
     "eslint": "^5.4.0",
     "eslint-config-umi": "^1.4.0",
